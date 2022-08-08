@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum productionType {
+  album
+  movie
+  series
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  username          String    @unique
+  email             String    @unique
+  password          String
+  profile_image_url String
+  watched           Watched[]
+  reviews           Review[]
+
+  @@map("users")
+}
+
+model Production {
+  id          Int            @id @default(autoincrement())
+  name        String
+  release     Int?
+  image_url   String
+  description String
+  type        productionType
+  Watched     Watched[]
+  Review      Review[]
+
+  @@map("productions")
+}
+
+model Watched {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  productionId Int
+  user         User       @relation(fields: [userId], references: [id])
+  production   Production @relation(fields: [productionId], references: [id])
+
+  @@map("watched")
+}
+
+model Review {
+  id            Int        @id @default(autoincrement())
+  userId        Int
+  productionId  Int
+  rating        Decimal
+  ratingComment String?
+  user          User       @relation(fields: [userId], references: [id])
+  production    Production @relation(fields: [productionId], references: [id])
+
+  @@map("reviews")
+}
