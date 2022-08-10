@@ -23,7 +23,7 @@ export async function signInService(userData: CreateUserData) {
   const user = await findByEmail(email);
   if (!user) throw unauthorizedError("Wrong email/password");
   if (!(await bcrypt.compare(password, user.password))) throw unauthorizedError("Wrong email/password");
-  const token = jwt.sign({ id: user.id, email }, process.env.SECRET_KEY, {
+  const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY, {
     expiresIn: 60 * 60 * 24,
   });
   return token;

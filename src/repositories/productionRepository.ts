@@ -14,3 +14,8 @@ export async function getOrderByWatched() {
   const result = await prisma.production.findMany({ include: { _count: { select: { Watched: true } } }, orderBy: { Watched: { _count: "asc" } } });
   return result;
 }
+
+export async function getWatchedProductions(userId: number) {
+  const result = await prisma.production.findMany({ where: { Watched: { some: { userId } } } });
+  return result;
+}

@@ -11,3 +11,9 @@ export async function getProductionById(req: Request, res: Response) {
   const production = await productionService.getProductionById(+id);
   res.send(production);
 }
+
+export async function getWatchedProductions(req: Request, res: Response) {
+  const { user } = res.locals;
+  const productions = await productionService.getWatchedProductions(user.userId);
+  res.send(productions);
+}
