@@ -17,13 +17,13 @@ enum productionType {
 }
 
 model User {
-  id                Int       @id @default(autoincrement())
-  username          String    @unique
-  email             String    @unique
-  password          String
-  profile_image_url String
-  watched           Watched[]
-  reviews           Review[]
+  id       Int       @id @default(autoincrement())
+  username String    @unique
+  email    String    @unique
+  password String
+  picture  String
+  watched  Watched[]
+  reviews  Review[]
 
   @@map("users")
 }
