@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import * as productionService from "./../services/productionService.js";
 
 export async function getProduction(req: Request, res: Response) {
-  const productions = await productionService.getProductions();
+  const { user } = res.locals;
+  const productions = await productionService.getProductions(user.id);
   res.send(productions);
 }
 
