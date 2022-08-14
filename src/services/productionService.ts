@@ -16,9 +16,14 @@ export async function getProductions(userId: number) {
   return result;
 }
 
-export async function getProductionById(id: number) {
-  const result = await productionRepository.getById(id);
-  return result;
+export async function getProductionById(id: number, userId: number) {
+  const prod = await productionRepository.getById(id);
+  const verif = await find(prod.id, userId);
+  if (verif) {
+    return { ...prod, watched: true };
+  } else {
+    return { ...prod, watched: false };
+  }
 }
 
 export async function getWatchedProductions(userId: number) {

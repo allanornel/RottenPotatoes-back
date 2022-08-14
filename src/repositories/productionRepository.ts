@@ -6,7 +6,10 @@ export async function get() {
 }
 
 export async function getById(id: number) {
-  const result = await prisma.production.findUnique({ where: { id }, include: { _count: { select: { Watched: true } }, Review: true } });
+  const result = await prisma.production.findUnique({
+    where: { id },
+    include: { _count: { select: { Watched: true } }, Review: { include: { user: true } } },
+  });
   return result;
 }
 
