@@ -7,17 +7,16 @@ import { generateUser } from "../factories/userFactory";
 
 const agent = supertest(app);
 
-describe("POST /review/:id", () => {
-  it("Should answer status code 201 and create a review", async () => {
+describe("POST /watched/:id", () => {
+  it("Should answer status code 201 and create a watched", async () => {
     const bodyUser = generateUser();
     const user = await prisma.user.create({ data: bodyUser });
     const token = getToken(user.id, user.username);
     const bodyProd = generateProduction();
     const production = await prisma.production.create({ data: bodyProd });
-    const bodyReview = { rating: 5, ratingComment: "Belo Filme" };
-    const response = await agent.post(`/review/${production.id}`).send(bodyReview).set({ Authorization: token });
+    const response = await agent.post(`/watched/${production.id}`).send({}).set({ Authorization: token });
     expect(response.status).toBe(201);
-    const search = await prisma.review.findFirst({ where: { rating: 5, ratingComment: "Belo Filme" } });
+    const search = await prisma.watched.findFirst({ where: { productionId: production.id } });
     expect(search).not.toBeNull();
   });
 });
