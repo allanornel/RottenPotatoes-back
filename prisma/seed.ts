@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { prisma } from "../src/database";
-import { CreateProductionData } from "../tests/factories/productionFactory";
+import { prisma } from "../src/database.js";
+import { CreateProductionData } from "../tests/factories/productionFactory.js";
 
 async function main() {
   const productionArray: CreateProductionData[] = [
