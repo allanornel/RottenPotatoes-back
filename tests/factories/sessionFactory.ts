@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
-export async function getToken(email) {
-  const token = jwt.sign({ email }, process.env.SECRET_KEY, {
+export function getToken(id: number, username: string) {
+  const token = jwt.sign({ id, username }, process.env.SECRET_KEY, {
     expiresIn: 60 * 60 * 24,
   });
   return token;
