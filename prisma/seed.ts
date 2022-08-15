@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker";
+import { Production } from "@prisma/client";
 import { prisma } from "../src/database.js";
-import { CreateProductionData } from "../tests/factories/productionFactory.js";
+
+type CreateProductionData = Omit<Production, "id">;
 
 async function main() {
   const productionArray: CreateProductionData[] = [
