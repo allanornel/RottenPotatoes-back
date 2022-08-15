@@ -8,7 +8,10 @@
     "test": "dotenv -e .env.test prisma migrate dev && cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
     "build": "tsc",
     "start": "node dist/src/index.js",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "dev:test": "dotenv -e .env.test nodemon src/server.ts",
+    "test": "dotenv -e .env.test prisma migrate dev && cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
+    "test:unit": "dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest -- -i --coverage --testPathPattern=tests/unit"
   },
   "keywords": [],
   "author": "Allan Ornel",
@@ -21,6 +24,7 @@
     "@types/jest": "^28.1.6",
     "@types/joi": "^17.2.3",
     "@types/node": "^18.6.3",
+    "@types/supertest": "^2.0.12",
     "cross-env": "^7.0.3",
     "dotenv-cli": "^6.0.0",
     "jest": "^28.1.3",
